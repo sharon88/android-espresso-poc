@@ -29,13 +29,17 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 /**
  * Created by admin on 10/15/17.
  */
-
+//The @Runwith annotation will tell the JUnit to run the tests in this class using the Android JUnit test runner.
 @RunWith(AndroidJUnit4.class)
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class EspressoTest {
 
     public static final int LOGIN_ID = R.id.username_et;
-
+    public static final String PASSWORD_HINT_TEXT= "password";
+    public static final String PASSWORD_TEXT="tesco";
+//The Rule will make sure to launch the Login activity directly. This means that when testing an n-layer activity,
+// you don’t need to do all the steps to start it. Simply define that in the rule and you are ready to go.
     @Rule
     public ActivityTestRule<LoginActivity> mActivityRule = new ActivityTestRule<>(
             LoginActivity.class);
@@ -49,7 +53,7 @@ public class EspressoTest {
 
     public void alogin() {
       onView(withId(LOGIN_ID)).perform(typeText("a"));
-        Espresso.onView(withHint("password")).perform(typeText("tesco"));
+        Espresso.onView(withHint(PASSWORD_HINT_TEXT)).perform(typeText(PASSWORD_TEXT));
         Espresso.onView(withText("Log in")).check(matches(isEnabled()));
         Espresso.onView(withText("Log in")).perform(click());
         Espresso.onView((withText("Item 1"))).check(matches(isDisplayed()));
@@ -65,6 +69,10 @@ public class EspressoTest {
     public void run(){
         alogin();
         bitem1();
+    }
+
+    public void login () {
+
     }
 
 
